@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_home_doctor">
+
+    <fragment
+        android:id="@+id/navigation_home_doctor"
+        android:name="com.hazem.alkateb.palliativecare.doctor.ui.home.HomeFragment"
+        android:label="@string/title_home_doctor"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_my_topics_doctor"
+        android:name="com.hazem.alkateb.palliativecare.doctor.ui.my_topics.MyTopicsFragment"
+        android:label="@string/title_my_topics"
+        tools:layout="@layout/fragment_my_topics" >
+        <action
+            android:id="@+id/action_navigation_my_topics_doctor_to_addTopicFragment"
+            app:destination="@id/addTopicFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+        <action
+            android:id="@+id/action_navigation_my_topics_doctor_to_showTopicDetailsFragment"
+            app:destination="@id/showTopicDetailsFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile_doctor"
+        android:name="com.hazem.alkateb.palliativecare.doctor.ui.doctor_profile.DoctorProfileFragment"
+        android:label="@string/title_profile_doctor"
+        tools:layout="@layout/fragment_doctor_profile" />
+    <fragment
+        android:id="@+id/addTopicFragment"
+        android:name="com.hazem.alkateb.palliativecare.doctor.ui.add_topic.AddTopicFragment"
+        android:label="AddTopicFragment" >
+        <action
+            android:id="@+id/action_addTopicFragment_to_navigation_my_topics_doctor"
+            app:destination="@id/navigation_my_topics_doctor"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/showTopicDetailsFragment"
+        android:name="com.hazem.alkateb.palliativecare.doctor.ui.show_topic_details.ShowTopicDetailsFragment"
+        android:label="ShowTopicDetailsFragment" >
+        <action
+            android:id="@+id/action_showTopicDetailsFragment_to_editTopicFragment"
+            app:destination="@id/editTopicFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+        <action
+            android:id="@+id/action_showTopicDetailsFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+        <action
+            android:id="@+id/action_showTopicDetailsFragment_to_pdfShowFragment"
+            app:destination="@id/pdfShowFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTopicFragment"
+        android:name="com.hazem.alkateb.palliativecare.doctor.ui.edit_topic.EditTopicFragment"
+        android:label="EditTopicFragment" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.hazem.alkateb.palliativecare.doctor.ui.add_post.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
+    <fragment
+        android:id="@+id/pdfShowFragment"
+        android:name="com.hazem.alkateb.palliativecare.fragments.PdfShowFragment"
+        android:label="fragment_pdf_show"
+        tools:layout="@layout/fragment_pdf_show" />
+</navigation>

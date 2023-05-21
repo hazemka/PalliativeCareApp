@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "789915409083",
+    "project_id": "palliative-care-ada4e",
+    "storage_bucket": "palliative-care-ada4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789915409083:android:6e80fbda01930fad37a79e",
+        "android_client_info": {
+          "package_name": "com.hazem.alkateb.palliativecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789915409083-0h3qf5sh11dbb1ulvp3ubt2n4ks1m1i6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXQk79nRX-PMqSEz3hr_GBG4eXGUJud2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789915409083-0h3qf5sh11dbb1ulvp3ubt2n4ks1m1i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">دليل الصحة</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_doctor">DoctorActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_home_doctor">الرئيسية</string>
+    <string name="title_my_topics">مواضيعي</string>
+    <string name="title_profile_doctor">الملف الشخصي</string>
+    <string name="title_topics_patient">المواضيع</string>
+    <string name="title_following_topics">المتابعات</string>
+    <string name="title_chat_patient">المحادثات</string>
+    <string name="title_activity_patient">PatientActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="NotificationChannelId">Notifications</string>
+    <string name="NotificationChannelName">الإشعارات</string>
+</resources>
