@@ -101,6 +101,12 @@ class ShowTopicDetailsFragment : Fragment() {
             }
         }
 
+        binding.btnSendTopicNotification.setOnClickListener {
+            val b = Bundle()
+            b.putString("topicId",topicId)
+            findNavController().navigate(R.id.action_showTopicDetailsFragment_to_sendNotificationFragment,b)
+        }
+
         return binding.root
     }
 

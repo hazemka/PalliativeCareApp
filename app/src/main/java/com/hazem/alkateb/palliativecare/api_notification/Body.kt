@@ -1,5 +1,5 @@
 package com.hazem.alkateb.palliativecare.api_notification
 
-data class Body(var to:String ,var notificationBody: NotificationBody)
+data class NotificationBody(val to:String ,val notification: Data)
 
-data class NotificationBody(var body:String,var title:String)
+data class Data(val body:String,val title: String)

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -87,6 +88,25 @@ class DoctorPostAdapter(var context: Context, var data: ArrayList<Post>
             }
             popupMenu.show()
         }
+
+        holder.binding.btnComments1.setOnClickListener {
+            val sharedPreferences = context.getSharedPreferences("userData", AppCompatActivity.MODE_PRIVATE)
+            val b = Bundle()
+            b.putString("topicId",ShowTopicDetailsFragment.topicId)
+            b.putString("postId",data[position].id)
+            b.putString("userId",sharedPreferences.getString("userId",""))
+            holder.binding.root.findNavController().navigate(R.id.action_showTopicDetailsFragment_to_showCommentsFragment,b)
+        }
+
+        holder.binding.btnComments2.setOnClickListener {
+            val sharedPreferences = context.getSharedPreferences("userData", AppCompatActivity.MODE_PRIVATE)
+            val b = Bundle()
+            b.putString("topicId",ShowTopicDetailsFragment.topicId)
+            b.putString("postId",data[position].id)
+            b.putString("userId",sharedPreferences.getString("userId",""))
+            holder.binding.root.findNavController().navigate(R.id.action_showTopicDetailsFragment_to_showCommentsFragment,b)
+        }
+
     }
 
     override fun getItemCount(): Int {

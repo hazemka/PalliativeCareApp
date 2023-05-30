@@ -6,27 +6,62 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.devhoony.lottieproegressdialog.LottieProgressDialog
+import com.google.firebase.database.FirebaseDatabase
 import com.hazem.alkateb.palliativecare.R
+import com.hazem.alkateb.palliativecare.databinding.FragmentChatPatientBinding
+import com.hazem.alkateb.palliativecare.model.MessageModel
 
 class ChatPatientFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ChatPatientFragment()
-    }
-
-    private lateinit var viewModel: ChatPatientViewModel
+    private lateinit var dialog: LottieProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_chat_patient, container, false)
-    }
+    ): View {
+        val binding = FragmentChatPatientBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChatPatientViewModel::class.java)
-        // TODO: Use the ViewModel
+        dialog = LottieProgressDialog(requireContext(), false, 150, 200, null,
+            null, LottieProgressDialog.SAMPLE_6, "جار التحميل..",View.VISIBLE)
+
+        val sharedPreferences = requireActivity().getSharedPreferences("userData", AppCompatActivity.MODE_PRIVATE)
+        val userId = sharedPreferences.getString("userId","")!!
+        val data = ArrayList<MessageModel>()
+
+        val database = FirebaseDatabase.getInstance().getReference("chats")
+        database.get().addOnSuccessListener {
+            for (i in it.children){
+                if (i.key!!.startsWith(userId)){
+                    val room = i.value as HashMap<*,*>
+                    for (msg in room){
+                        val msgData = msg.value as HashMap<*,*>
+                        if(msgData["receiverId"].toString() == userId){
+                            data.add(
+                                MessageModel(msgData["msgId"].toString(),msgData["senderId"].toString()
+                                ,msgData["message"].toString(),msgData["time"].toString().toInt(),msgData["senderName"].toString()
+                                ,msgData["receiverName"].toString(),msgData["receiverId"].toString(),msgData["title"].toString())
+                            )
+                            break
+                        }
+                    }
+                }
+                val chatContactAdapter = ChatContactAdapter(requireContext(),data,"patient")
+                binding.rvChat.adapter = chatContactAdapter
+                binding.rvChat.layoutManager = LinearLayoutManager(requireContext())
+            }
+            if (dialog.isShowing) dialog.dismiss()
+        }
+            .addOnFailureListener {
+                if (dialog.isShowing) dialog.dismiss()
+                Toast.makeText(requireContext(), "تأكد من اتصال الشبكة", Toast.LENGTH_SHORT).show()
+            }
+
+
+        return binding.root
     }
 
 }

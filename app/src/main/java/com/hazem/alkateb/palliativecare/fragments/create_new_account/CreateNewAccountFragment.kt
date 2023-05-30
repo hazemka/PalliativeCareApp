@@ -46,8 +46,6 @@ class CreateNewAccountFragment : Fragment() {
             if (it){
                 binding.dialog.hide()
                 clearFields()
-                // show dialog to display that account was created and you can go to the login page
-
                 (requireActivity() as MainActivity).replaceFragment(LoginFragment())
             }else{
                 Toast.makeText(requireContext(), "تأكد من اتصال الانترنت", Toast.LENGTH_SHORT).show()

@@ -13,12 +13,28 @@
         android:id="@+id/nav_topics_patient"
         android:name="com.hazem.alkateb.palliativecare.patient.ui.topics.TopicsPatientFragment"
         android:label="fragment_topics_patient"
-        tools:layout="@layout/fragment_topics_patient" />
+        tools:layout="@layout/fragment_topics_patient" >
+        <action
+            android:id="@+id/action_nav_topics_patient_to_topicDetailsFragment"
+            app:destination="@id/topicDetailsFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+    </fragment>
     <fragment
         android:id="@+id/nav_following_topics"
         android:name="com.hazem.alkateb.palliativecare.patient.ui.following_topics.FollowingTopicsFragment"
         android:label="fragment_following_topics"
-        tools:layout="@layout/fragment_following_topics" />
+        tools:layout="@layout/fragment_following_topics" >
+        <action
+            android:id="@+id/action_nav_following_topics_to_topicDetailsFragment"
+            app:destination="@id/topicDetailsFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+    </fragment>
     <fragment
         android:id="@+id/nav_chat_patient"
         android:name="com.hazem.alkateb.palliativecare.patient.ui.chat.ChatPatientFragment"
@@ -29,4 +45,35 @@
         android:name="com.hazem.alkateb.palliativecare.doctor.ui.doctor_profile.DoctorProfileFragment"
         android:label="fragment_doctor_profile"
         tools:layout="@layout/fragment_doctor_profile" />
+    <fragment
+        android:id="@+id/topicDetailsFragment"
+        android:name="com.hazem.alkateb.palliativecare.patient.ui.topic_details.TopicDetailsFragment"
+        android:label="fragment_topic_details"
+        tools:layout="@layout/fragment_topic_details" >
+        <action
+            android:id="@+id/action_topicDetailsFragment_to_showPostsFragment"
+            app:destination="@id/showPostsFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/showPostsFragment"
+        android:name="com.hazem.alkateb.palliativecare.patient.ui.show_posts.ShowPostsFragment"
+        android:label="fragment_show_posts"
+        tools:layout="@layout/fragment_show_posts" >
+        <action
+            android:id="@+id/action_showPostsFragment_to_showCommentsFragment2"
+            app:destination="@id/showCommentsFragment2"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/showCommentsFragment2"
+        android:name="com.hazem.alkateb.palliativecare.fragments.show_comments.ShowCommentsFragment"
+        android:label="fragment_show_comments"
+        tools:layout="@layout/fragment_show_comments" />
 </navigation>

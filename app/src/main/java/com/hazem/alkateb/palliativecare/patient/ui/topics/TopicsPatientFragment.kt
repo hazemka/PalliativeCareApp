@@ -24,9 +24,8 @@ class TopicsPatientFragment : Fragment() {
 
         binding = FragmentTopicsPatientBinding.inflate(inflater, container, false)
 
-
         if (isAdded){
-            topicsPatientViewModel.getAllTopics()
+            topicsPatientViewModel.getSubscriptionsIds(requireContext())
             binding.shimmerFrameLayout.startShimmer()
         }
 
@@ -49,6 +48,7 @@ class TopicsPatientFragment : Fragment() {
 
         return binding.root
     }
+
 
     override fun onResume() {
         super.onResume()

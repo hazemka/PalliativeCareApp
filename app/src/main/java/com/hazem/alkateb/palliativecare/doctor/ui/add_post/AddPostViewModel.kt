@@ -2,26 +2,28 @@ package com.hazem.alkateb.palliativecare.doctor.ui.add_post
 
 import android.app.Activity
 import android.content.ContentResolver
-import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
 import android.webkit.MimeTypeMap
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.hazem.alkateb.palliativecare.api_notification.ApiClient
 import com.hazem.alkateb.palliativecare.api_notification.ApiRepository
-import com.hazem.alkateb.palliativecare.api_notification.Body
+import com.hazem.alkateb.palliativecare.api_notification.Data
 import com.hazem.alkateb.palliativecare.api_notification.NotificationBody
 import com.hazem.alkateb.palliativecare.api_notification.TopicResponse
 import com.hazem.alkateb.palliativecare.model.Post
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
-import java.io.ByteArrayOutputStream
 import java.util.UUID
-import javax.security.auth.callback.Callback
 
 
 class AddPostViewModel : ViewModel() {
@@ -107,19 +109,32 @@ class AddPostViewModel : ViewModel() {
             .document(topicId)
             .update("numOfPosts",pastNum+1)
             .addOnSuccessListener {
-                val call = repository.sendTopicNotification(Body(topicId, NotificationBody("تم إضافة منشور جديد في موضوع ${topicName}","تم إضافة منشور جديد")))
-                call.enqueue(object :retrofit2.Callback<TopicResponse> {
-                    override fun onResponse(
-                        call: Call<TopicResponse>,
-                        response: Response<TopicResponse>) {
-                        Log.e("hzm", "onResponse: ${response.body()!!.message_id}")
-                        Log.e("hzm", "onResponse: ${response.code()}")
-                        isPostUploaded.value = true
+                viewModelScope.launch(Dispatchers.IO){
+                    try{
+                        val call = repository.sendNotification(NotificationBody("/topics/$topicId", Data("تم إضافة منشور جديد في موضوع ${topicName}","تم إضافة منشور جديد")))
+                        call.enqueue(object :Callback<TopicResponse>{
+                            override fun onResponse(
+                                call: Call<TopicResponse>,
+                                response: Response<TopicResponse>
+                            ) {
+                                Log.e("hzm", "onResponse: ${response.code()}")
+                                Log.e("hzm", "onResponse: ${response.body().toString()}")
+                                isPostUploaded.value = response.isSuccessful && response.code() == 200
+                            }
+
+                            override fun onFailure(call: Call<TopicResponse>, t: Throwable) {
+                                Log.e("hzm", "onResponse: ${t.message}")
+                            }
+
+                        })
+                    }catch (e:Exception){
+                        Log.e("hzm", "updateNumberOfPosts: Error" +
+                                "${e.message}")
                     }
-                    override fun onFailure(call: Call<TopicResponse>, t: Throwable) {
-                        isPostUploaded.value = false
-                    }
-                })
+                }
+
+
+                Log.e("hzm", "notification Success:")
             }
             .addOnFailureListener {
                 isPostUploaded.value = false

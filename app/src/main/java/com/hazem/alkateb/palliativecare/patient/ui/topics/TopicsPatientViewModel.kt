@@ -1,6 +1,7 @@
 package com.hazem.alkateb.palliativecare.patient.ui.topics
 
 import android.content.Context
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +15,7 @@ import com.hazem.alkateb.palliativecare.model.UserTopic
 class TopicsPatientViewModel : ViewModel() {
 
     val allTopics = MutableLiveData<ArrayList<UserTopic>>()
+    var myTopicsArray = ArrayList<String>()
     val firestore = FirebaseFirestore.getInstance()
 
     fun getAllTopics(){
@@ -30,20 +32,23 @@ class TopicsPatientViewModel : ViewModel() {
                         .get()
                         .addOnSuccessListener {topics->
                             for ( topic in topics){
-                                data.add(UserTopic(topic.id,user.id,topic.getString("name")!!,topic.getString("description")!!
+                                if (!myTopicsArray.contains(topic.id)){
+                                    Log.e("hzm", "getAllTopics: ${topic.id}")
+                                    data.add(UserTopic(topic.id,user.id,topic.getString("name")!!,topic.getString("description")!!
                                         ,topic.getString("imageUrl")!!,topic.get("numOfComments").toString().toInt()
                                         ,topic.get("numOfPosts").toString().toInt(),topic.get("numOfFollowers").toString().toInt()
                                         ,topic.getBoolean("show")!!))
+                                }
                             }
                             allTopics.value = data
                         }
                         .addOnFailureListener {
-                            allTopics.value = ArrayList()
+                            allTopics.value  = ArrayList()
                         }
                 }
             }
             .addOnFailureListener {
-                allTopics.value = ArrayList()
+                allTopics.value  =ArrayList()
             }
     }
 
@@ -64,7 +69,7 @@ class TopicsPatientViewModel : ViewModel() {
                 }
         }
 
-        fun updateNumOfFollowers(doctorId:String,topicId:String){
+        private fun updateNumOfFollowers(doctorId:String, topicId:String){
             FirebaseFirestore.getInstance().collection("users")
                 .document(doctorId)
                 .collection("myTopics")
@@ -98,10 +103,13 @@ class TopicsPatientViewModel : ViewModel() {
             .collection("subscriptions")
             .get()
             .addOnSuccessListener {
-
+                for (topic in it){
+                    myTopicsArray.add(topic.getString("topicId")!!)
+                }
+                getAllTopics()
             }
             .addOnFailureListener {
-
+                allTopics.value = ArrayList()
             }
     }
 }

@@ -31,7 +31,8 @@ class LoginViewModel:ViewModel() {
             .document(userId)
             .get()
             .addOnSuccessListener {
-                if (saveUserData(activity,userId,it.getString("firstName")!!,it.getString("userType")!!))
+                if (saveUserData(activity,userId,it.getString("firstName")!!,it.getString("userType")!!
+                    ,it.getString("secondName")!!,it.getString("familyName")!!))
                     isLoginSuccess.value = true
             }
             .addOnFailureListener {
@@ -39,11 +40,14 @@ class LoginViewModel:ViewModel() {
             }
     }
 
-    private fun saveUserData(activity: Activity,userId: String,userName:String,userType:String):Boolean{
+    private fun saveUserData(activity: Activity,userId: String,userName:String,userType:String,
+    secondName:String,familyName:String):Boolean{
         val sharedPreferences =  activity.getSharedPreferences("userData", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("userId", userId)
         editor.putString("userName",userName)
+        editor.putString("familyName",familyName)
+        editor.putString("secondName",secondName)
         editor.putString("userType",userType)
         return editor.commit()
     }

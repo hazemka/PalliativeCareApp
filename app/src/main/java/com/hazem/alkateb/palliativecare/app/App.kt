@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Build
 import androidx.core.content.ContextCompat.getSystemService
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.hazem.alkateb.palliativecare.R
 
 class App:Application() {
@@ -14,6 +15,7 @@ class App:Application() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel(applicationContext)
+        val analytics = FirebaseAnalytics.getInstance(this)
     }
 }
 

@@ -2,7 +2,7 @@ package com.hazem.alkateb.palliativecare.api_notification
 
 class ApiRepository(private val apiService: ApiService) {
 
-    fun sendCustomNotification(body: Body) = apiService.sendCustomNotification(body)
+    fun sendNotification(body: NotificationBody) = apiService.sendNotification(body)
 
-    fun sendTopicNotification(body: Body) = apiService.sendTopicNotification(body)
+    fun sendCustomNotification(body: NotificationBody) = apiService.sendCustomNotification(body)
 }
